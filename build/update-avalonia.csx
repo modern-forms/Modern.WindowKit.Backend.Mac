@@ -12,7 +12,7 @@ using System.Text;
 //   - /Modern.WindowKit.Backend.Mac
 
 // Paths relative to the script location
-string avalonia_repo_path = Path.Combine ("..", "..", "Avalonia");
+string avalonia_repo_path = Path.Combine ("..", "Avalonia");
 string modern_forms_repo_path = "..";
 
 string avalonia_path = Path.Combine (avalonia_repo_path);
