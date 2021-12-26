@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Authors>Jonathan Pobst</Authors>
+    <Description>Native interop bits used by Modern.WindowKit on OSX.</Description>
+    <PackageId>Modern.WindowKit.Backend.Mac</PackageId>
+    <Version>0.0.1-preview1</Version>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AvnComIdl Include="../avn.idl" OutputFile="Interop.Generated.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../tools/MicroComGenerator/MicroComGenerator.csproj" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="../tools/MicroComPatcher/MicroComPatcher.csproj" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+
+  <Import Project="../../build/MicroCom.targets" />
+
+  <ItemGroup>
+    <Content Include="../../lib/libAvaloniaNative.dylib">
+      <PackagePath>runtimes/osx/native/libAvaloniaNative.dylib</PackagePath>
+      <Pack>true</Pack>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+</Project>
