@@ -42,4 +42,4 @@ jobs:
       uses: actions/upload-artifact@v1.0.0
       with:
         name: NuGet Package
-        path: src/Modern.WindowKit.Backend.Mac/bin/Release/**/*.nupkg
+        path: src/Modern.WindowKit.Backend.Mac/bin/**/*.nupkg
