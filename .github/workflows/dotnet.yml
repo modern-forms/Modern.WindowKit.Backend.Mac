@@ -30,7 +30,7 @@ jobs:
         cp Build/Products/Release/libAvalonia.Native.OSX.dylib lib/libAvaloniaNative.dylib
       
     - name: Upload dylib
-      uses: actions/upload-artifact@v1.0.0
+      uses: actions/upload-artifact@v2
       with:
         name: dylib
         path: lib/libAvaloniaNative.dylib
@@ -39,7 +39,7 @@ jobs:
       run: dotnet pack Modern.WindowKit.Backend.Mac.sln -c Release
 
     - name: Upload NuGet
-      uses: actions/upload-artifact@v1.0.0
+      uses: actions/upload-artifact@v2
       with:
         name: NuGet Package
-        path: src/Modern.WindowKit.Backend.Mac/bin/Release/Modern.WindowKit.Backend.Mac.0.0.1-preview1.nupkg
+        path: src/Modern.WindowKit.Backend.Mac/bin/**/*.nupkg
