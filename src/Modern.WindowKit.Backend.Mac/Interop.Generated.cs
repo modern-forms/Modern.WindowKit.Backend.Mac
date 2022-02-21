@@ -246,7 +246,10 @@ namespace Avalonia.Native.Interop
         TouchBegin,
         TouchUpdate,
         TouchEnd,
-        TouchCancel
+        TouchCancel,
+        Magnify,
+        Rotate,
+        Swipe
     }
 
     internal enum AvnRawKeyEventType
