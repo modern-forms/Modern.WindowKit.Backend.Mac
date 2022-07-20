@@ -1,3 +1,8 @@
+#pragma once
+
+#include "com.h"
+#include "comimpl.h"
+#include "avalonia-native.h"
 
 @protocol IRenderTarget
 -(void) setNewLayer: (CALayer*) layer;
@@ -10,3 +15,4 @@
 @interface IOSurfaceRenderTarget : NSObject<IRenderTarget>
 -(IOSurfaceRenderTarget*) initWithOpenGlContext: (IAvnGlContext*) context;
 @end
+
