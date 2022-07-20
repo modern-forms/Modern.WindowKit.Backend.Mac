@@ -15,3 +15,4 @@
 @interface IOSurfaceRenderTarget : NSObject<IRenderTarget>
 -(IOSurfaceRenderTarget*) initWithOpenGlContext: (IAvnGlContext*) context;
 @end
+
