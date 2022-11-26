@@ -1,7 +1,9 @@
 name: Build
 
 # Trigger the workflow on push or pull request
-on: [push]
+on: 
+  push:
+  workflow_dispatch:
 
 jobs:
   build:
