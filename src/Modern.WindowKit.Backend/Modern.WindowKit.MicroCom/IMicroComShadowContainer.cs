@@ -1,4 +1,4 @@
-namespace Avalonia.MicroCom
+namespace Modern.WindowKit.MicroCom
 {
     public interface IMicroComShadowContainer
     {

@@ -1,6 +1,6 @@
-# Modern.WindowKit.Backend.Mac
+# Modern.WindowKit.Backend
 
-Generated native interop bits for OSX used by Modern.WindowKit:
+Generated native interop bits for Windows and OSX used by Modern.WindowKit:
 
 https://github.com/modern-forms/Modern.WindowKit
 

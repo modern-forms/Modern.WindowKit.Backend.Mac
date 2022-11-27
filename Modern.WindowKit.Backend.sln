@@ -2,7 +2,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modern.WindowKit.Backend.Mac", "src\Modern.WindowKit.Backend.Mac\Modern.WindowKit.Backend.Mac.csproj", "{13915EA9-EA30-4ED3-8979-3B76EDEB3332}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modern.WindowKit.Backend", "src\Modern.WindowKit.Backend\Modern.WindowKit.Backend.csproj", "{13915EA9-EA30-4ED3-8979-3B76EDEB3332}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroComPatcher", "src\tools\MicroComPatcher\MicroComPatcher.csproj", "{E1127977-2BE4-4E6D-841B-421C800F307F}"
 EndProject

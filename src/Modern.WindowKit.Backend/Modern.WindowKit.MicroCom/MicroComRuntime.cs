@@ -2,7 +2,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Runtime.InteropServices;
 
-namespace Avalonia.MicroCom
+namespace Modern.WindowKit.MicroCom
 {
     public static unsafe class MicroComRuntime
     {

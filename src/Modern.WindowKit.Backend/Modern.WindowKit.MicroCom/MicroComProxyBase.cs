@@ -3,7 +3,7 @@ using System.Runtime.ConstrainedExecution;
 using System.Runtime.InteropServices;
 using System.Threading;
 
-namespace Avalonia.MicroCom
+namespace Modern.WindowKit.MicroCom
 {
     public unsafe class MicroComProxyBase : CriticalFinalizerObject, IUnknown
     {

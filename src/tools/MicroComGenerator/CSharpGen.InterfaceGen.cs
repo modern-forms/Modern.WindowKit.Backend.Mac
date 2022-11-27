@@ -62,7 +62,7 @@ namespace MicroComGenerator
 
             public override StatementSyntax[] ReturnMarshalResult() => new[]
             {
-                ParseStatement("return Avalonia.MicroCom.MicroComRuntime.CreateProxyFor<" + InterfaceType + ">(" +
+                ParseStatement("return Modern.WindowKit.MicroCom.MicroComRuntime.CreateProxyFor<" + InterfaceType + ">(" +
                                PName + ", true);")
             };
 
@@ -73,7 +73,7 @@ namespace MicroComGenerator
 
             public override ExpressionSyntax BackMarshalReturn(string resultVar)
             {
-                return ParseExpression($"Avalonia.MicroCom.MicroComRuntime.GetNativePointer({resultVar}, true)");
+                return ParseExpression($"Modern.WindowKit.MicroCom.MicroComRuntime.GetNativePointer({resultVar}, true)");
             }
         }
 
@@ -82,25 +82,25 @@ namespace MicroComGenerator
             public string InterfaceType;
 
             public override ExpressionSyntax Value(bool isHresultReturn) =>
-                ParseExpression("Avalonia.MicroCom.MicroComRuntime.GetNativePointer(" + Name + ")");
+                ParseExpression("Modern.WindowKit.MicroCom.MicroComRuntime.GetNativePointer(" + Name + ")");
 
             public override string ManagedType => InterfaceType;
 
             public override StatementSyntax[] ReturnMarshalResult() => new[]
             {
-                ParseStatement("return Avalonia.MicroCom.MicroComRuntime.CreateProxyFor<" + InterfaceType + ">(" +
+                ParseStatement("return Modern.WindowKit.MicroCom.MicroComRuntime.CreateProxyFor<" + InterfaceType + ">(" +
                                Name + ", true);")
             };
 
             public override ExpressionSyntax BackMarshalValue()
             {
-                return ParseExpression("Avalonia.MicroCom.MicroComRuntime.CreateProxyFor<" + InterfaceType + ">(" +
+                return ParseExpression("Modern.WindowKit.MicroCom.MicroComRuntime.CreateProxyFor<" + InterfaceType + ">(" +
                                        Name + ", false)");
             }
             
             public override ExpressionSyntax BackMarshalReturn(string resultVar)
             {
-                return ParseExpression($"Avalonia.MicroCom.MicroComRuntime.GetNativePointer({resultVar}, true)");
+                return ParseExpression($"Modern.WindowKit.MicroCom.MicroComRuntime.GetNativePointer({resultVar}, true)");
             }
         }
 
@@ -311,7 +311,7 @@ namespace MicroComGenerator
                 arg.BackPreMarshal(backPreMarshal);
 
             backPreMarshal.Add(
-                ParseStatement($"__target = ({iface.Identifier.Text})Avalonia.MicroCom.MicroComRuntime.GetObjectFromCcw(@this);"));
+                ParseStatement($"__target = ({iface.Identifier.Text})Modern.WindowKit.MicroCom.MicroComRuntime.GetObjectFromCcw(@this);"));
 
             var isBackVoidReturn = isVoidReturn || (isHresult && !isHresultLastArgumentReturn);
 
@@ -354,7 +354,7 @@ namespace MicroComGenerator
                     CatchDeclaration(ParseTypeName("System.Exception"), Identifier("__exception__")), null,
                     Block(
                         ParseStatement(
-                            "Avalonia.MicroCom.MicroComRuntime.UnhandledException(__target, __exception__);"),
+                            "Modern.WindowKit.MicroCom.MicroComRuntime.UnhandledException(__target, __exception__);"),
                         isHresult ? ParseStatement("return unchecked((int)0x80004005u);")
                         : isVoidReturn ? EmptyStatement() : ParseStatement("return default;")
                     ))
@@ -426,14 +426,14 @@ namespace MicroComGenerator
             var inheritsUnknown = iface.Inherits == null || iface.Inherits == "IUnknown";
 
             var ifaceDec = InterfaceDeclaration(iface.Name)
-                .WithBaseType(inheritsUnknown ? "Avalonia.MicroCom.IUnknown" : iface.Inherits)
+                .WithBaseType(inheritsUnknown ? "Modern.WindowKit.MicroCom.IUnknown" : iface.Inherits)
                 .AddModifiers(Token(_visibility), Token(SyntaxKind.UnsafeKeyword), Token(SyntaxKind.PartialKeyword));
 
             var proxyClassName = "__MicroCom" + iface.Name + "Proxy";
             var proxy = ClassDeclaration(proxyClassName)
                 .AddModifiers(Token(SyntaxKind.UnsafeKeyword), Token(_visibility), Token(SyntaxKind.PartialKeyword))
                 .WithBaseType(inheritsUnknown ?
-                    "Avalonia.MicroCom.MicroComProxyBase" :
+                    "Modern.WindowKit.MicroCom.MicroComProxyBase" :
                     ("__MicroCom" + iface.Inherits + "Proxy"))
                 .AddBaseListTypes(SimpleBaseType(ParseTypeName(iface.Name)));
 
@@ -443,7 +443,7 @@ namespace MicroComGenerator
                 .AddModifiers(Token(SyntaxKind.UnsafeKeyword));
 
             vtbl = vtbl.WithBaseType(inheritsUnknown ?
-                "Avalonia.MicroCom.MicroComVtblBase" :
+                "Modern.WindowKit.MicroCom.MicroComVtblBase" :
                 "__MicroCom" + iface.Inherits + "VTable");
             
             var vtblCtor = new List<StatementSyntax>();
@@ -458,7 +458,7 @@ namespace MicroComGenerator
                 .AddMembers(MethodDeclaration(ParseTypeName("void"), "__MicroComModuleInit")
                     .AddModifiers(Token(SyntaxKind.StaticKeyword), Token(SyntaxKind.InternalKeyword))
                     .WithExpressionBody(ArrowExpressionClause(
-                        ParseExpression("Avalonia.MicroCom.MicroComRuntime.RegisterVTable(typeof(" +
+                        ParseExpression("Modern.WindowKit.MicroCom.MicroComRuntime.RegisterVTable(typeof(" +
                                         iface.Name + "), new " + vtbl.Identifier.Text + "().CreateVTable())")))
                     .WithSemicolonToken(Semicolon()));
                 
@@ -468,7 +468,7 @@ namespace MicroComGenerator
                     MethodDeclaration(ParseTypeName("void"), "__MicroComModuleInit")
                         .AddModifiers(Token(SyntaxKind.StaticKeyword), Token(SyntaxKind.InternalKeyword))
                         .WithBody(Block(
-                            ParseStatement("Avalonia.MicroCom.MicroComRuntime.Register(typeof(" +
+                            ParseStatement("Modern.WindowKit.MicroCom.MicroComRuntime.Register(typeof(" +
                                            iface.Name + "), new Guid(\"" + guidString + "\"), (p, owns) => new " +
                                            proxyClassName + "(p, owns));")
                         )))

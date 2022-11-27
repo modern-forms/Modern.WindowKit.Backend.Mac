@@ -1,6 +1,6 @@
 using System;
 
-namespace Avalonia.MicroCom
+namespace Modern.WindowKit.MicroCom
 {
     unsafe class LocalInterop
     {

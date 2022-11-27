@@ -4,15 +4,15 @@
     <TargetFramework>net6.0</TargetFramework>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Authors>Jonathan Pobst</Authors>
-    <Description>Native interop bits used by Modern.WindowKit on OSX.</Description>
-    <PackageId>Modern.WindowKit.Backend.Mac</PackageId>
-    <Version>0.1.4-alpha02</Version>
+    <Description>Native interop bits used by Modern.WindowKit on Windows and OSX.</Description>
+    <PackageId>Modern.WindowKit.Backend</PackageId>
+    <Version>0.4.0-alpha01</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
-    <AvnComIdl Include="../avn.idl" OutputFile="Interop.Generated.cs" />
-    <AvnComIdl Include="../win32.idl" OutputFile="Windows.Interop.Generated.cs" />
+    <AvnComIdl Include="../avn.idl" OutputFile="Mac/Interop.Generated.cs" />
+    <AvnComIdl Include="../win32.idl" OutputFile="Windows/Windows.Interop.Generated.cs" />
   </ItemGroup>
 
   <ItemGroup>

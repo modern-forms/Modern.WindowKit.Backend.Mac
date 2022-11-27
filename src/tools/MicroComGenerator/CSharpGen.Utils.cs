@@ -17,7 +17,7 @@ namespace MicroComGenerator
         CompilationUnitSyntax Unit()
             => CompilationUnit().WithUsings(List(new[]
                 {
-                    "System", "System.Text", "System.Collections", "System.Collections.Generic", "Avalonia.MicroCom"
+                    "System", "System.Text", "System.Collections", "System.Collections.Generic", "Modern.WindowKit.MicroCom"
                 }
                 .Concat(_extraUsings).Select(u => UsingDirective(IdentifierName(u)))));
         

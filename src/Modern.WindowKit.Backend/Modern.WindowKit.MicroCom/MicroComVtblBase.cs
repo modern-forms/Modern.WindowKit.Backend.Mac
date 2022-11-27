@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-namespace Avalonia.MicroCom
+namespace Modern.WindowKit.MicroCom
 {
     public unsafe class MicroComVtblBase
     {

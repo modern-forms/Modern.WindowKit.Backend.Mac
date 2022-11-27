@@ -6,7 +6,7 @@ namespace Modern.WindowKit.Win32.Interop
     /// <summary>
     /// Defines a rectangle.
     /// </summary>
-    public readonly struct Rect : IEquatable<Rect>
+    internal readonly struct Rect : IEquatable<Rect>
     {
         /// <summary>
         /// An empty rectangle.

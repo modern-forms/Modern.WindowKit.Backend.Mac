@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace Avalonia.Native.Interop
+namespace Modern.WindowKit.Mac.Interop
 {
     partial interface IAvnString
     {
@@ -14,7 +14,7 @@ namespace Avalonia.Native.Interop
         string[] ToStringArray();
     }
 }
-namespace Avalonia.Native.Interop.Impl
+namespace Modern.WindowKit.Mac.Interop.Impl
 {
     unsafe partial class __MicroComIAvnStringProxy
     {
