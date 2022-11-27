@@ -35,9 +35,9 @@
   <Target Name="PatchMicroComAssembly"
           AfterTargets="CoreCompile">
     
-    <Message Importance="high" Text="Patching MicroCom assembly $(IntermediateOutputPath)Modern.WindowKit.Backend.Mac.dll" />
+    <Message Importance="high" Text="Patching MicroCom assembly $(IntermediateOutputPath)$(AssemblyName).dll" />
     
-    <Exec Command="dotnet &quot;$(MSBuildThisFileDirectory)../src/tools/MicroComPatcher/bin/$(Configuration)/net6.0/MicroComPatcher.dll&quot; &quot;$(IntermediateOutputPath)Modern.WindowKit.Backend.Mac.dll&quot;"
+    <Exec Command="dotnet &quot;$(MSBuildThisFileDirectory)../src/tools/MicroComPatcher/bin/$(Configuration)/net6.0/MicroComPatcher.dll&quot; &quot;$(IntermediateOutputPath)$(AssemblyName).dll&quot;"
           LogStandardErrorAsError="true" />
   </Target>
 
