@@ -473,6 +473,14 @@ enum AvnWindowTransparencyMode
     Blur
 }
 
+enum AvnPlatformThemeVariant
+{
+    Light,
+    Dark,
+    HighContrastLight,
+    HighContrastDark,
+}
+
 [uuid(809c652e-7396-11d2-9771-00a0c9b4d50c)]
 interface IAvaloniaNativeFactory : IUnknown
 {
@@ -494,6 +502,8 @@ interface IAvaloniaNativeFactory : IUnknown
      HRESULT CreateMenuItemSeparator(IAvnMenuItem** ppv);
      HRESULT CreateTrayIcon(IAvnTrayIcon** ppv);
      HRESULT CreateApplicationCommands(IAvnApplicationCommands** ppv);
+     HRESULT CreatePlatformSettings(IAvnPlatformSettings** ppv);
+     HRESULT CreatePlatformBehaviorInhibition(IAvnPlatformBehaviorInhibition** ppv);
 }
 
 [uuid(233e094f-9b9f-44a3-9a6e-6948bbdd9fb1)]
@@ -535,6 +545,8 @@ interface IAvnWindowBase : IUnknown
      HRESULT BeginDragAndDropOperation(AvnDragDropEffects effects, AvnPoint point,
                                               IAvnClipboard* clipboard, IAvnDndResultCallback* cb, [intptr]void* sourceHandle);
      HRESULT SetTransparencyMode(AvnWindowTransparencyMode mode);
+     HRESULT SetFrameThemeVariant(AvnPlatformThemeVariant mode);
+     HRESULT GetInputMethod(IAvnTextInputMethod **ppv);
 }
 
 [uuid(83e588f3-6981-4e48-9ea0-e1e569f79a91), cpp-virtual-inherits]
@@ -601,6 +613,22 @@ interface IAvnWindowEvents : IAvnWindowBaseEvents
      void GotInputWhenDisabled();
 }
 
+[uuid(f2079145-a2d9-42b8-a85e-2732e3c2b055)]
+interface IAvnTextInputMethodClient : IUnknown
+{
+    void SetPreeditText(char* preeditText);
+    void SelectInSurroundingText(int start, int length);
+}
+
+[uuid(1382a29f-e260-4c7a-b83f-c99fc72e27c2)]
+interface IAvnTextInputMethod : IUnknown
+{
+    HRESULT SetClient(IAvnTextInputMethodClient* client);
+    void Reset();
+    void SetCursorRect(AvnRect rect);
+    void SetSurroundingText(char* text, int anchorOffset, int cursorOffset);
+}
+
 [uuid(e34ae0f8-18b4-48a3-b09d-2e6b19a3cf5e)]
 interface IAvnMacOptions : IUnknown
 {
@@ -617,9 +645,11 @@ interface IAvnActionCallback : IUnknown
 }
 
 [uuid(6df4d2db-0b80-4f59-ad88-0baa5e21eb14)]
-interface IAvnSignaledCallback : IUnknown
+interface IAvnPlatformThreadingInterfaceEvents : IUnknown
 {
-     void Signaled(int priority, bool priorityContainsMeaningfulValue);
+     void Signaled();
+     void Timer();
+     void ReadyForBackgroundProcessing();
 }
 
 [uuid(97330f88-c22b-4a8e-a130-201520091b01)]
@@ -632,12 +662,12 @@ interface IAvnLoopCancellation : IUnknown
 interface IAvnPlatformThreadingInterface : IUnknown
 {
      bool GetCurrentThreadIsLoopThread();
-     void SetSignaledCallback(IAvnSignaledCallback* cb);
+     void SetEvents(IAvnPlatformThreadingInterfaceEvents* cb);
      IAvnLoopCancellation* CreateLoopCancellation();
-     HRESULT RunLoop(IAvnLoopCancellation* cancel);
-    // Can't pass int* to sharpgentools for some reason
-     void Signal(int priority);
-     IUnknown* StartTimer(int priority, int ms, IAvnActionCallback* callback);
+     void RunLoop(IAvnLoopCancellation* cancel);
+     void Signal();
+     void UpdateTimer(int ms);
+     void RequestBackgroundProcessing();
 }
 
 [uuid(6c621a6e-e4c1-4ae3-9749-83eeeffa09b6)]
@@ -905,4 +935,18 @@ interface IAvnAutomationNode : IUnknown
     void ChildrenChanged();
     void PropertyChanged(AvnAutomationProperty property);
     void FocusChanged();
+}
+
+[uuid(d1f009cc-9d2d-493b-845d-90d2c104baae)]
+interface IAvnPlatformSettings : IUnknown
+{
+    AvnPlatformThemeVariant GetPlatformTheme();
+    uint GetAccentColor();
+    void RegisterColorsChange(IAvnActionCallback* callback);
+}
+
+[uuid(12edf00d-5803-4d3f-9947-b4840e5e9372)]
+interface IAvnPlatformBehaviorInhibition : IUnknown
+{
+    void SetInhibitAppSleep(bool inhibitAppSleep, char* reason);
 }
