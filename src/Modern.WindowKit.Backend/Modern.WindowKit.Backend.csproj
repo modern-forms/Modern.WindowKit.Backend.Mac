@@ -6,7 +6,7 @@
     <Authors>Jonathan Pobst</Authors>
     <Description>Native interop bits used by Modern.WindowKit on Windows and OSX.</Description>
     <PackageId>Modern.WindowKit.Backend</PackageId>
-    <Version>0.4.0-alpha01</Version>
+    <Version>0.4.0-alpha03</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
